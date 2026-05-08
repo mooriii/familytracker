@@ -3,6 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
+import authRouter from './routes/auth';
 
 const app = express();
 const httpServer = createServer(app);
@@ -18,9 +19,10 @@ app.get('/health', (_req, res) => {
   res.json({ status: 'ok' });
 });
 
+app.use('/auth', authRouter);
+
 io.on('connection', (socket) => {
   console.log('Client connected:', socket.id);
-
   socket.on('disconnect', () => {
     console.log('Client disconnected:', socket.id);
   });
