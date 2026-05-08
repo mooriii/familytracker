@@ -9,8 +9,12 @@ export default function WelcomeScreen() {
       <Text style={styles.title}>FamilyTracker</Text>
       <Text style={styles.subtitle}>Stay connected with your family</Text>
 
-      <TouchableOpacity style={styles.button} onPress={() => router.push('/(auth)/login')}>
+      <TouchableOpacity style={styles.button} onPress={() => router.push('/(auth)/register')}>
         <Text style={styles.buttonText}>I am a Parent</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.loginLink} onPress={() => router.push('/(auth)/login')}>
+        <Text style={styles.loginLinkText}>Already have an account? Sign in</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
@@ -63,4 +67,6 @@ const styles = StyleSheet.create({
   buttonTextSecondary: {
     color: '#4f46e5',
   },
+  loginLink: { marginTop: 16 },
+  loginLinkText: { color: '#4f46e5', fontSize: 14 },
 });
