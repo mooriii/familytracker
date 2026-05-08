@@ -4,6 +4,8 @@ import cors from 'cors';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 import authRouter from './routes/auth';
+import locationRouter from './routes/location';
+import { registerFamilySocket } from './sockets/family';
 
 const app = express();
 const httpServer = createServer(app);
@@ -20,13 +22,9 @@ app.get('/health', (_req, res) => {
 });
 
 app.use('/auth', authRouter);
+app.use('/location', locationRouter);
 
-io.on('connection', (socket) => {
-  console.log('Client connected:', socket.id);
-  socket.on('disconnect', () => {
-    console.log('Client disconnected:', socket.id);
-  });
-});
+registerFamilySocket(io);
 
 const PORT = process.env.PORT ?? 3000;
 httpServer.listen(PORT, () => {
