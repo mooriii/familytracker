@@ -179,11 +179,11 @@ Deliverable: App installable on real devices via TestFlight / Play Store
 
 | Skill | Name                          | Status |
 |-------|-------------------------------|--------|
-| 1     | Project Scaffold              | ⬜     |
-| 2     | Database Schema               | ⬜     |
-| 3     | Backend Auth API              | ⬜     |
-| 4     | Location API + WebSockets     | ⬜     |
-| 5     | Mobile Auth Screens           | ⬜     |
+| 1     | Project Scaffold              | ✅     |
+| 2     | Database Schema               | ✅     |
+| 3     | Backend Auth API              | ✅     |
+| 4     | Location API + WebSockets     | ✅     |
+| 5     | Mobile Auth Screens           | ✅     |
 | 6     | Child Background Location     | ⬜     |
 | 7     | Parent Map View               | ⬜     |
 | 8     | Geofencing + Notifications    | ⬜     |
