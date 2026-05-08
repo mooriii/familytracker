@@ -13,6 +13,8 @@
     "typecheck": "npm run typecheck --workspaces"
   },
   "devDependencies": {
-    "prettier": "^3.3.3"
+    "prettier": "^3.3.3",
+    "expo-router": "~4.0.22",
+    "babel-preset-expo": "~54.0.10"
   }
 }
