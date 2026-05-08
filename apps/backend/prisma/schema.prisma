@@ -1,0 +1,69 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Family {
+  id          String      @id @default(cuid())
+  name        String
+  inviteCode  String      @unique @map("invite_code")
+  createdAt   DateTime    @default(now()) @map("created_at")
+
+  members     User[]
+  geofences   Geofence[]
+
+  @@map("families")
+}
+
+model User {
+  id           String    @id @default(cuid())
+  name         String
+  email        String    @unique
+  passwordHash String    @map("password_hash")
+  role         Role      @default(CHILD)
+  familyId     String?   @map("family_id")
+  createdAt    DateTime  @default(now()) @map("created_at")
+
+  family       Family?   @relation(fields: [familyId], references: [id])
+  locations    Location[]
+
+  @@map("users")
+}
+
+model Location {
+  id          String    @id @default(cuid())
+  userId      String    @map("user_id")
+  lat         Float
+  lng         Float
+  accuracy    Float?
+  batteryPct  Int?      @map("battery_pct")
+  recordedAt  DateTime  @default(now()) @map("recorded_at")
+
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, recordedAt])
+  @@map("locations")
+}
+
+model Geofence {
+  id            String    @id @default(cuid())
+  familyId      String    @map("family_id")
+  name          String
+  lat           Float
+  lng           Float
+  radiusMeters  Int       @map("radius_meters")
+  createdAt     DateTime  @default(now()) @map("created_at")
+
+  family        Family    @relation(fields: [familyId], references: [id], onDelete: Cascade)
+
+  @@map("geofences")
+}
+
+enum Role {
+  PARENT
+  CHILD
+}
