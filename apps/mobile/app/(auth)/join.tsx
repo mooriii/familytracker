@@ -26,8 +26,12 @@ export default function JoinScreen() {
   const onSubmit = async (data: FormData) => {
     try {
       await join(data.name, data.email, data.password, data.inviteCode.toUpperCase());
-    } catch {
-      Alert.alert('Could not join', 'The invite code may be invalid. Ask your parent for a new one.');
+    } catch (err: any) {
+      const msg =
+        err?.response?.data?.error ??
+        (err?.message?.includes('Network') ? 'Cannot reach server. Is the backend running?' : err?.message) ??
+        'Could not join. Please try again.';
+      Alert.alert('Could not join', msg);
     }
   };
 

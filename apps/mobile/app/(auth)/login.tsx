@@ -25,8 +25,12 @@ export default function LoginScreen() {
     try {
       await login(data.email, data.password);
       // navigation handled by root layout based on role
-    } catch {
-      Alert.alert('Login failed', 'Invalid email or password. Please try again.');
+    } catch (err: any) {
+      const msg =
+        err?.response?.data?.error ??
+        (err?.message?.includes('Network') ? 'Cannot reach server. Is the backend running?' : err?.message) ??
+        'Login failed. Please try again.';
+      Alert.alert('Login failed', msg);
     }
   };
 

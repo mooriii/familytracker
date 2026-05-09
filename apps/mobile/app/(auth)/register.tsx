@@ -26,8 +26,12 @@ export default function RegisterScreen() {
   const onSubmit = async (data: FormData) => {
     try {
       await register(data.name, data.email, data.password, data.familyName);
-    } catch {
-      Alert.alert('Registration failed', 'This email may already be in use. Please try again.');
+    } catch (err: any) {
+      const msg =
+        err?.response?.data?.error ??
+        (err?.message?.includes('Network') ? 'Cannot reach server. Is the backend running?' : err?.message) ??
+        'Registration failed. Please try again.';
+      Alert.alert('Registration failed', msg);
     }
   };
 
